@@ -42,11 +42,33 @@ bottom=25mm}
 %no quetation marks on title of the reference
 \DeclareFieldFormat[article]{title}{#1}
 \DeclareFieldFormat[inproceedings]{title}{#1}
+\DeclareFieldFormat[inbook]{title}{#1}
 \renewbibmacro{in:}{}%no in
 \AtEveryBibitem{\clearfield{number}}%no volyme number
 \DeclareNameFormat{customauthor}{%custom author
   \namepartfamily
   \usebibmacro{name:andothers}}
+%custom format for in book item
+\DeclareBibliographyDriver{inbook}{%
+  \printnames{author} 
+  \printfield{year}%
+  \newunit\newblock
+  \printfield{title}%
+  \newunit\newblock
+  \printtext{In:}
+  \printnames{editor}%
+  \ifnumequal{\value{editor}}{1}
+    {\printtext{\space(ed.)}}
+    {\printtext{\space(eds.)}}
+  \printfield{booktitle}%
+  \newunit\newblock
+  \printlist{publisher}%
+  \printtext{,}
+  \printlist{location}%
+  \printtext{,}
+  \printfield{pages}
+  \finentry
+}
 
 %custom citation commands
 %customformat i
