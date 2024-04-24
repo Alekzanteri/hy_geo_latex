@@ -123,6 +123,18 @@ bottom=25mm}
 \fancyfoot[R]{}% Empty left footer
 \renewcommand{\headrulewidth}{0pt}%no line
 
+%section subsection and others style.
+\usepackage{titlesec}
+\usepackage{titletoc}
+\titleformat{\section}
+  {\normalfont\sffamily\bfseries\MakeUppercase}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\bfseries}
+  {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\itshape}
+  {\thesubsubsection}{1em}{}
 
 %add your own commands here
 \newcommand{\aste}{^{\circ}}%command  for degree mark
@@ -141,7 +153,7 @@ more info\\
 \end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{\Large \textbf{Abstract}}\\
+{\textbf{Abstract}}\\
 \lipsum[1]
 \newpage
 
