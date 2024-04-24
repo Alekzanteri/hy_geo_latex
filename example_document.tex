@@ -112,6 +112,17 @@ bottom=25mm}
     {}%
 }
 
+%pagenumber position
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead[L]{}% Empty left header
+\fancyhead[C]{} % Page numbering for center header  
+\fancyhead[R]{}% Empty right header
+\fancyfoot[L]{}% Empty left footer
+\fancyfoot[C]{}% Empty center footer
+\fancyfoot[R]{}% Empty left footer
+\renewcommand{\headrulewidth}{0pt}%no line
+
 
 %add your own commands here
 \newcommand{\aste}{^{\circ}}%command  for degree mark
@@ -129,11 +140,20 @@ more info\\
 \end{center}
 \end{titlepage}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\Large \textbf{Abstract}}\\
+\lipsum[1]
+\newpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%sivunumeroinnin aloits
+\fancyhead[C]{\thepage}
+\setcounter{page}{3}
+
 \section{Tutorial}
 I use program called TeXworks. It is availiable at least for Windws and Linux. I have no idea is online editors work if you just copy tex document to the editor.\\
 
