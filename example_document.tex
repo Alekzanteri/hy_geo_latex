@@ -7,7 +7,6 @@
 right=25mm,
  top=25mm,
 bottom=25mm}
-\frenchspacing % same space size for everything
 
 \usepackage[skip=12pt]{parskip} % no intend, but a little space between paragraphs
 
@@ -16,10 +15,13 @@ bottom=25mm}
 \usepackage{subcaption}%custom caption
 \DeclareCaptionFormat{custom}
 {%
-    \footnotesize{#1#2 #3}
+    \linespread{1.0}\selectfont\footnotesize{#1#2 #3}
 }
 \DeclareCaptionLabelSeparator{custom}{.}
 \captionsetup{format=custom, labelsep=custom}
+
+\setlength{\textfloatsep}{30pt plus 2.0pt minus 4.0pt}
+\setlength{\intextsep}{30pt plus 2.0pt minus 4.0pt}
 
 \usepackage{eurosym}%euro
 
@@ -46,7 +48,6 @@ bottom=25mm}
 
 %reference list settings
 \DeclareNameAlias{sortname}{family-given}
-\addbibresource{references.bib}%single bib file of all the references
 \usepackage{xpatch,filecontents}
 \xpatchbibmacro{date+extradate}{%no brackets around year
   \printtext[parens]%
@@ -55,6 +56,12 @@ bottom=25mm}
   \printtext%
 }{}{} 
 
+% no oxford comma
+\AtBeginBibliography{%
+  \renewcommand*{\finalnamedelim}{\addspace and\space}%
+  \renewcommand*{\finalandcomma}{}%
+}
+
 \makeatletter%no cursive
 
 \renewrobustcmd*{\mkbibemph}{}
@@ -62,8 +69,6 @@ bottom=25mm}
 \makeatother
 
 \DeclareFieldFormat{pages}{#1}%no pp before pages
-
-
 
 
 %no quetation marks on title of the reference
@@ -93,24 +98,38 @@ bottom=25mm}
 %section subsection and others style.
 \usepackage{titlesec}
 \usepackage{titletoc}
-\titlelabel{\thetitle.\quad}
 \titleformat{\section}
-  {\normalfont\sffamily\bfseries\MakeUppercase}
-  {\thesection.}{1em}{}
+  {\bfseries\MakeUppercase}
+  {\thesection}{1em}{}
 \titleformat{\subsection}
-  {\normalfont\bfseries}
-  {\thesubsection.}{1em}{}
+  {\bfseries}
+  {\thesubsection}{1em}{}
 \titleformat{\subsubsection}
-  {\normalfont\itshape}
-  {\thesubsubsection.}{1em}{}
+  {\itshape}
+  {\thesubsubsection}{1em}{}
+
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\thesubsection\arabic{subsubsection}.}
+
+\titlespacing*{\section}{0pt}{30pt plus 5pt minus 5pt}{5 pt plus 1pt minus 1pt}
+
+\usepackage{tocloft}
+\setlength{\cftbeforesubsecskip}{0pt}
+\setlength{\cftbeforesecskip}{5pt}
+
+%\usepackage{setspace}
 
 %add your own commands here
 \newcommand{\aste}{^{\circ}}%command  for degree mark
+\newcommand{\om}{\Omega\text{m}}
 
-\usepackage[table]{xcolor} %table colors
+\usepackage[table]{xcolor} %table co
+
 
 
 \begin{document}
+\frenchspacing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{titlepage}
 \begin{center}
@@ -160,7 +179,7 @@ Faculty of Science
 \hline
 \multicolumn{6}{| p{0.9\linewidth} |}{\textbf{Author:} }\\
 \hline
-\multicolumn{6}{| p{0.9\linewidth} |}{\textbf{Title:} }\\
+\multicolumn{6}{| p{\linewidth} |}{\textbf{Title:} }\\
 \hline
 \multicolumn{2}{| p{0.3\linewidth} }{\textbf{Level:} Master's thesis} & \multicolumn{2}{| p{0.3\linewidth} |}{\textbf{Month and year:} \the\month/\the\year} & \multicolumn{2}{| p{0.3\linewidth} |}{\textbf{Number of pages:} \pageref{LastPage}}\\
 \hline
@@ -189,11 +208,11 @@ Faculty of Science
 \hline
 \multicolumn{6}{| p{0.9\linewidth} |}{\textbf{Tekijä:} }\\
 \hline
-\multicolumn{6}{| p{0.9\linewidth} |}{\textbf{Työn nimi:} Three-dimensional magnetotelluric studies on ancient collision zone in Bothnian region}\\
+\multicolumn{6}{| p{0.9\linewidth} |}{\textbf{Työn nimi:}} \\
 \hline
 \multicolumn{2}{| p{0.3\linewidth} }{\textbf{Työn taso:} Maisteritutkielma} & \multicolumn{2}{| p{0.3\linewidth} |}{\textbf{Kuukausi ja vuosi:} \the\month/\the\year} & \multicolumn{2}{| p{0.3\linewidth} |}{\textbf{Sivumäärä:} \pageref{LastPage}}\\
 \hline
-\multicolumn{6}{| p{0.9\linewidth} |}{\textbf{Tiivistelmä:} \lipsum[1-1] }\\
+\multicolumn{6}{| p{1\linewidth} |}{\textbf{Tiivistelmä:} \lipsum[1-1] }\\
 \hline
 \multicolumn{6}{| p{0.9\linewidth} |}{\textbf{Avainsanat:} }\\
 \hline
@@ -254,9 +273,11 @@ Spacing is set as "frenchspacing" on line 10 of the .tex document. See \href{htt
 \subsection{these are all useless.}
 \lipsum[5]
 
-\section*{References}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\phantomsection
 \addcontentsline{toc}{section}{REFERENCES}
-\printbibliography[title= \vspace{-1.5cm}]
+\section*{References}
+\printbibliography[title= \vspace{-1cm}]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
